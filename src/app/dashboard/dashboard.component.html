@@ -1,0 +1,49 @@
+Dashboard!
+<div class="form-container">
+    <mat-card class="form-card">
+
+        <button mat-raised-button color="primary" routerLink="/home">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+        </button>
+
+
+        <br>
+        <br>
+        <button mat-raised-button color="primary" (click)="tester()">
+            <mat-icon>anchor</mat-icon>
+            <span>Test</span>
+        </button>
+
+        <div *ngIf="(user | async)">
+            <div>accountStatus: {{ (user | async)?.accountStatus }}</div>
+            <div>accountType: {{ (user | async)?.accountType }}</div>
+            <div>displayName: {{ (user | async)?.displayName }}</div>
+            <div>displayName_lower: {{ (user | async)?.displayName_lower }}</div>
+            <div>email: {{ (user | async)?.email }}</div>
+            <div>email_lower: {{ (user | async)?.email_lower }}</div>
+        </div>
+
+    </mat-card>
+
+
+
+    <mat-card class="form-card">
+        Cats
+
+        <ul>
+            <li class="text" *ngFor="let cat of cats | async">
+                {{cat.name}}: {{cat.color}}, {{cat.favoriteFood}}
+            </li>
+        </ul>
+
+    </mat-card>
+
+
+    <div *ngIf="(test | async)">
+        Test
+        <div>name: {{ (test | async)?.name }}</div>
+        <div>color: {{ (test | async)?.color }}</div>
+        <div>favoriteFood: {{ (test | async)?.favoriteFood }}</div>
+    </div>
+</div>
