@@ -28,7 +28,7 @@ export class AuthService {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then(() => {
                 console.log('Auth Service: loginUser: success');
-                // this.router.navigate(['/uploadData']);
+                // this.router.navigate(['/dashboard']);
             })
             .catch(error => {
                 console.log('Auth Service: login error...');
@@ -40,14 +40,11 @@ export class AuthService {
     }
 
     signupUser(user: any): Promise<any> {
-        console.log("auth service");
-        console.log(user);
-
-        return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
+       return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
             .then((newUserCredential /*: firebase.auth.UserCredential*/) => {
                 let emailLower = user.email.toLowerCase();
 
-                this.afs.doc('/users/' + emailLower)
+                this.afs.doc('/users/' + emailLower)                        // on a successful signup, create a document in 'users' collection with the new user's info
                     .set({
                         accountStatus: 'unverified',
                         accountType: 'endUser',
@@ -58,7 +55,7 @@ export class AuthService {
                     });
             })
             .catch(error => {
-                console.log('auth signup error...');
+                console.log('Auth Service: signup error', error);
                 if (error.code)
                     return { isValid: false, message: error.message };
             });
@@ -67,10 +64,11 @@ export class AuthService {
     resetPassword(email: string): Promise<any> {
         return this.afAuth.sendPasswordResetEmail(email)
             .then(() => {
+                console.log('Auth Service: reset password success');
                 // this.router.navigate(['/amount']);
             })
             .catch(error => {
-                console.log('error.code...');
+                console.log('Auth Service: reset password error...');
                 console.log(error.code);
                 console.log(error)
                 if (error.code)
@@ -81,14 +79,14 @@ export class AuthService {
     logoutUser(): Promise<void> {
         return this.afAuth.signOut()
             .then(() => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/home']);                    // when we log the user out, navigate them to home
             })
             .catch(error => {
                 console.log('Auth Service: logout error...');
                 console.log('error code', error.code);
                 console.log('error', error);
-                // if (error.code)
-                //     return error;
+                if (error.code)
+                    return error;
             });
     }
 
@@ -102,6 +100,6 @@ export class AuthService {
     }
 
     getCurrentUser() {
-        return this.afAuth.currentUser;     // returns user object for logged-in users, otherwise returns null 
+        return this.afAuth.currentUser;                                 // returns user object for logged-in users, otherwise returns null 
     }
 }
