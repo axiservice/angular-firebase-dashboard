@@ -1,42 +1,40 @@
 Home
+
+<section>
+    <button mat-raised-button color="primary" routerLink="/login">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+    </button>
+    <button mat-raised-button color="primary" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Log out</span>
+    </button>
+    <button mat-raised-button color="primary" routerLink="/signup">
+        <mat-icon>person_add</mat-icon>
+        <span>Sign up</span>
+    </button>
+</section>
+
 <br>
-<button mat-raised-button color="primary" routerLink="/login">
-    <mat-icon>login</mat-icon>
-    <span>Login</span>
-</button>
+
+<section>
+    <button mat-raised-button color="primary" routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+    </button>
+    <button mat-raised-button color="primary" routerLink="/admin">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span>Admin Dashboard</span>
+    </button>
+</section>
+
 <br>
-<br>
-<button mat-raised-button color="primary" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    <span>Log out</span>
-</button>
-<br>
-<br>
-<button mat-raised-button color="primary" routerLink="/signup" >
-    <mat-icon>person_add</mat-icon>
-    <span>Sign up</span>
-</button>
-<br>
-<br>
-<button mat-raised-button color="primary" routerLink="/admin">
-    <mat-icon>admin_panel_settings</mat-icon>
-    <span>Admin Dashboard</span>
-</button>
-<br>
-<br>
-<button mat-raised-button color="primary" routerLink="/dashboard">
-    <mat-icon>dashboard</mat-icon>
-    <span>Dashboard</span>
-</button>
-<br>
-<br>
-<button mat-stroked-button color="disabled" *ngIf="(afAuth.user | async)">
+
+<mat-card *ngIf="(afAuth.user | async)">
     <mat-icon>check_circle</mat-icon>
-    <span>User is logged IN</span>
-</button>
-<br>
-<br>
-<button mat-stroked-button color="disabled" *ngIf="!(afAuth.user | async)">
-    <mat-icon>do_not_disturb</mat-icon>
-    <span>User is logged OUT</span>
-</button>
+    <span>User is logged in</span>
+</mat-card>
+<mat-card *ngIf="!(afAuth.user | async)">
+    <mat-icon>check_circle</mat-icon>
+    <span>User is not logged in</span>
+</mat-card>
