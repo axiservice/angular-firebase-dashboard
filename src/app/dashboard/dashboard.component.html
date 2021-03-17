@@ -1,25 +1,17 @@
-Dashboard!
-<div class="form-container">
-    <mat-card class="form-card">
+Dashboard
 
-        <button mat-raised-button color="primary" routerLink="/home">
-            <mat-icon>home</mat-icon>
-            <span>Home</span>
-        </button>
+<br>
+<br>
+<button mat-raised-button color="primary" routerLink="/home">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+</button>
 
-
-        <br>
-        <br>
-
-
-        <div *ngIf="(user | async)">
-            <div>account status: {{ (user | async)?.accountStatus }}</div>
-            <div>account type: {{ (user | async)?.accountType }}</div>
-            <div>display name: {{ (user | async)?.displayName }}</div>
-            <div>display name lower: {{ (user | async)?.displayName_lower }}</div>
-            <div>email: {{ (user | async)?.email }}</div>
-            <div>email lower: {{ (user | async)?.email_lower }}</div>
-        </div>
-    </mat-card>
-
-</div>
+<mat-list *ngIf="(user | async)">
+    <mat-list-item>Account Status: {{ (user | async)?.accountStatus }}</mat-list-item>
+    <mat-list-item>Account Type: {{ (user | async)?.accountType }}</mat-list-item>
+    <mat-list-item>Display Name: {{ (user | async)?.displayName }}</mat-list-item>
+    <mat-list-item>Display Name (lower): {{ (user | async)?.displayName_lower }}</mat-list-item>
+    <mat-list-item>Email: {{ (user | async)?.email }}</mat-list-item>
+    <mat-list-item>Email (lower): {{ (user | async)?.email_lower }}</mat-list-item>
+</mat-list>
