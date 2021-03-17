@@ -15,8 +15,7 @@ export class SignupComponent implements OnInit {
     signupForm: FormGroup;
     firebaseErrorMessage: string;
 
-    constructor(private authService: AuthService, private router: Router, public afAuth: AngularFireAuth) {
-
+    constructor(private authService: AuthService, private router: Router, private afAuth: AngularFireAuth) {
         this.isProgressVisible = false;
         this.firebaseErrorMessage = '';
     }
