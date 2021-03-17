@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     firebaseErrorMessage: string;
 
-    constructor(private authService: AuthService, private router: Router, public afAuth: AngularFireAuth) {
+    constructor(private authService: AuthService, private router: Router, private afAuth: AngularFireAuth) {
 
         this.isProgressVisible = false;
 
