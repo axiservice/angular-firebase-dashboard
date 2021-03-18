@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
         this.isProgressVisible = false;
 
         this.loginForm = new FormGroup({
-            'email': new FormControl('oatie@ryan.com', [Validators.required, Validators.email]),
-            'password': new FormControl('asdf12', Validators.required)
+            'email': new FormControl('', [Validators.required, Validators.email]),
+            'password': new FormControl('', Validators.required)
         });
 
         this.firebaseErrorMessage = '';
