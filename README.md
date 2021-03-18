@@ -34,7 +34,7 @@ We're going to use Firebase Authentication for logins and Cloud Firestore
 ## Cloud Firestore test data
 * for this project, I have 2 collections of documents, `cats` and `users`
     * documents inside the `cats` colletion contain the fields `{color<string>, favoriteFood<string>, name<string>}`
-    * documents inside the `users` collection contain the fields `{accountStatus<string>, accountType<string>, displayName<string>, displayName_lower<string>, email<string>, email_lower<string>}`
+    * documents inside the `users` collection contain the fields `{accountType<string>, displayName<string>, displayName_lower<string>, email<string>, email_lower<string>}`
 
 # Create your Angular App
 

@@ -17,6 +17,10 @@ Home
         <mat-icon>help_outline</mat-icon>
         <span>Forgot password</span>
     </button>
+    <button mat-raised-button color="primary" routerLink="/verify-email">
+        <mat-icon>help_outline</mat-icon>
+        <span>Resend email verification</span>
+    </button>
 </section>
 
 <br>
@@ -39,6 +43,6 @@ Home
     <span>User is logged in</span>
 </mat-card>
 <mat-card *ngIf="!(afAuth.user | async)">
-    <mat-icon>check_circle</mat-icon>
+    <mat-icon>do_not_disturb</mat-icon>
     <span>User is not logged in</span>
 </mat-card>
