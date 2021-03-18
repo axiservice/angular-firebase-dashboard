@@ -40,19 +40,20 @@ export class AuthService {
     }
 
     signupUser(user: any): Promise<any> {
-       return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
-            .then((newUserCredential /*: firebase.auth.UserCredential*/) => {
+        return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
+            .then((result) => {
                 let emailLower = user.email.toLowerCase();
 
                 this.afs.doc('/users/' + emailLower)                        // on a successful signup, create a document in 'users' collection with the new user's info
                     .set({
-                        accountStatus: 'unverified',
                         accountType: 'endUser',
                         displayName: user.displayName,
                         displayName_lower: user.displayName.toLowerCase(),
                         email: user.email,
                         email_lower: emailLower
                     });
+
+                    result.user.sendEmailVerification();                    // immediately send the user a verification email
             })
             .catch(error => {
                 console.log('Auth Service: signup error', error);
@@ -71,6 +72,20 @@ export class AuthService {
                 console.log('Auth Service: reset password error...');
                 console.log(error.code);
                 console.log(error)
+                if (error.code)
+                    return error;
+            });
+    }
+
+    async resendVerificationEmail() {                         // verification email is sent in the Sign Up function, but if you need to resend, call this function
+        return (await this.afAuth.currentUser).sendEmailVerification()
+            .then(() => {
+                // this.router.navigate(['home']);
+            })
+            .catch(error => {
+                console.log('Auth Service: sendVerificationEmail error...');
+                console.log('error code', error.code);
+                console.log('error', error);
                 if (error.code)
                     return error;
             });
