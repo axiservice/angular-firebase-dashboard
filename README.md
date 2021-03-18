@@ -32,16 +32,20 @@ We're going to use Firebase Authentication for logins and Cloud Firestore
 * in the left column, browse to Build > Cloud Firestore > click "Create database" > "Start in test mode" > "Next" > (choose a location close to you) > "Enable"
 
 ## Cloud Firestore test data
-* for this project, I have 2 collections of documents, `cats` and `users`
-    * documents inside the `cats` colletion contain the fields `{color<string>, favoriteFood<string>, name<string>}`
-    * documents inside the `users` collection contain the fields `{accountType<string>, displayName<string>, displayName_lower<string>, email<string>, email_lower<string>}`
+* you don't have to set up any data, collections, or documents manually! Everything will be automatically built from our Angular app
+
+* for this project, I have 1 collection of documents called `users`
+    
+* documents inside the `users` collection contain the fields `{accountType<string>, displayName<string>, displayName_lower<string>, email<string>, email_lower<string>}`
 
 # Create your Angular App
 
 ## Make sure your coding environment is up to date
-> ng version            // make sure you're at least using Angular 11
+> ng version            
+* make sure you're at least using Angular 11
 
-> npm -v                // at least npm version 7
+> npm -v                
+* make sure you're at least using npm version 7
 
 ## Create the Angular project
 > npm install -g @angular/cli
@@ -95,7 +99,7 @@ Note: you can choose "No", but even if you choose "Yes" and end up
 ## Link the pages (Set up page routing)
 * open `angular-firebase-dashboard/src/app/app-routing.module.ts`
     * import each component
-    * add each component to the routes array
+    * add each component to the `routes:[...]` array
     * import `AuthGuard`
     * add the property `canActivate: [AuthGuard]` to make the dashboard and admin-dashboard accessible only to logged in users
 
@@ -150,9 +154,37 @@ Currently, anyone with a link to the Cloud Firestore database can read from it a
 
 * in a browser, navigate to Firebase > Build > Cloud Firestore > Rules
 
-* here are some permissions options to choose from:
-    * to allow only logged in users read/write access `allow read, write: if request.auth != null;`
-    * to allow only logged in users to read/write their own doc ``
+* to allow read & write access only if the user is logged in: 
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userEmail} {
+        allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+* to allow read access only to a logged in user's own doc and no write access: 
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userEmail} {
+        allow read: if request.auth.token.email.lower() == userEmail;
+        allow write: if false;
+    }
+  }
+}
+```
+
+# Build for production 
+> ng build --prod
+
+* building for production will take a little time, but all of the unused libraries will be removed!
+
+* you can take the contents of your `angular-firebase-dashboard/dist/angular-firebase-dashboard` folder and upload it to the `html` folder of your website
 
 
 
