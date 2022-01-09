@@ -1,3 +1,5 @@
+# TUTORIAL REFERENCE:
+# https://gitlab.com/ryanlogsdon/angular-firebase-dashboard
 # Building a secure dashboard with Angular 11 and Firebase
 
 # Overview

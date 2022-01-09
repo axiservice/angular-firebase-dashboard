@@ -1,9 +1,12 @@
 {
+  "projects": {
+    "demo": "skeleton-a4f61"
+  },
   "targets": {
-    "skeleton-a81ca": {
+    "skeleton-a4f61": {
       "hosting": {
         "angular-firebase-dashboard": [
-          "skeleton-a81ca"
+          "skeleton-a4f61"
         ]
       }
     }
